@@ -14,12 +14,12 @@ import { useNavigate } from 'react-router-dom';
 
 export default function Cart() {
 
- 
+    
     const { data, isLoading, isError, error } = useCart();
     const navigate = useNavigate();
     const { mutate: removeItem, isPending } = useRemoveFromCart();
-    const { mutate: updateItem, isPending:updateItemPending } = useUpdateCartItem();
-    const { mutate: clearItem, isPending:clearItemPending } = useClearCart();
+    const { mutate: updateItem } = useUpdateCartItem();
+    const { mutate: clearItem } = useClearCart();
     if (isLoading) return <CircularProgress /> 
     if (isError) return <Typography> {error} </Typography>
     
@@ -79,7 +79,12 @@ export default function Cart() {
           
 
              <Button color="error" disabled={isPending}
-                                 onClick={() => clearItem()}>Clear All</Button>
+                onClick={() => clearItem()}>Clear All</Button>
+            
+            <Box>
+                <Button variant='contained' onClick={()=>navigate('/checkout')}> Proccess to Checkout</Button>
+                <Button variant='contained' onClick={()=>navigate('/')}> Continue Shopping </Button>
+            </Box>
         </Box>
     )
 }

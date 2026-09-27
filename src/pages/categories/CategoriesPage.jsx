@@ -2,8 +2,10 @@ import React from 'react'
 import useCategories from '../../hooks/useCategories'
 import { Box, Grid, Typography } from '@mui/material';
 import Category from '../../ui/category/Category';
-import Loader from '../../ui/Loader/Loader';
+import Loader from '../../ui/loader/Loader';
 import { useTranslation } from 'react-i18next';
+
+
 export default function CategoriesPage() {
 
     const { data, isLoading, isError, error } = useCategories(100);

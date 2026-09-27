@@ -3,13 +3,14 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-
 import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-
 import useCart from '../../hooks/useCart';
 import useAuthStore from '../../store/useAuthStore';
 import i18n from '../../i18next';
+import useThemeStore from '../../hooks/useThemeStore';
+
+
 
 export default function Navbar() {
   const { t } = useTranslation();
@@ -30,7 +31,7 @@ export default function Navbar() {
     logout();
     navigate('/login');
   };
-
+  const { mode, toggleMode } = useThemeStore();
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -51,6 +52,7 @@ export default function Navbar() {
           <Button color="inherit" onClick={changeLanguage}>
             {i18n.language === 'ar' ? 'EN' : 'AR'}
           </Button>
+          <Button onClick={toggleMode} color='inherit'> {mode == "light" ? "Dark": "Light"} </Button> 
 
           <Box sx={{ flexGrow: 1 }}>
             <Button color="inherit" component={Link} to="/">
@@ -68,6 +70,12 @@ export default function Navbar() {
             <Button color="inherit" component={Link} to="/cart">
               {t('Cart')} ({cartCount})
             </Button>
+
+            <Button color='inherit' component={Link} to="/profile">
+              {t('Profile')}</Button>
+           
+            <Button color='inherit' component={Link} to="/profile/orders">
+              {t('ProfileOrders')}</Button>                     
           </Box>
 
           {!token ? (
@@ -75,7 +83,7 @@ export default function Navbar() {
               <Button color="inherit" component={Link} to="/login">
                 {t('Login')}
               </Button>
-
+             
               <Button color="inherit" component={Link} to="/register">
                 {t('Register')}
               </Button>

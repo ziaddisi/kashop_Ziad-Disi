@@ -4,24 +4,23 @@ import Cart from '../cart/Cart';
 import useProducts from '../../hooks/useProducts';
 import useAddToCart from '../../hooks/useAddToCart';
 import ProductDetails from './ProductDetails';
+import { useTranslation } from 'react-i18next';
 
 
-export default function Products() {
+
+
+const Products = () => {
+    const { data, isLoading, isError, error } = useProducts();
+    const { mutate: addToCart } = useAddToCart();
     
-const { data, isLoading, isError, error } = useProducts();
+    const { t, i18n } = useTranslation();
+  
+    if (isLoading) return <CircularProgress /> 
 
-if (isLoading) {
-  return <CircularProgress />;
-}
 
-if (isError) {
-  return <Typography>{error.message}</Typography>;
-}
-
-const products = data?.response?.data || [];
     return (
         <Box className="products" components="section">
-            <Typography component="h1" variant='h2'> Products </Typography>
+            <Typography component="h1" variant='h2' color="primary"> {t('Products')} </Typography>
             <Grid container spacing={{ xs: 2, md: 3 }} sx={{textAlign:'center'}}>
             {data.response.data.map((product) => {
                 return <Grid item size={{ xs: 12, sm: 6, md: 4 }}>
@@ -55,3 +54,4 @@ const products = data?.response?.data || [];
     )
 }
 
+export default Products;
