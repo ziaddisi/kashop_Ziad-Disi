@@ -35,21 +35,45 @@ export default function Login() {
     }
 
     return (
-        <Box component="section" className="LoginPage">
+        <Box component="section" className="LoginPage" sx={{
+  minHeight: '80vh',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+            px: '20px',
+  flexDirection: 'column',
+}}>
             
-        <Typography component="h1" variant="h2">
-              Login {name}
-        </Typography>
-
+        <Typography
+  component="h1"
+  variant="h3"
+  sx={{
+    fontWeight: 700,
+    textAlign: 'center',
+    mb: '25px',
+  }}
+>
+  Login
+</Typography>
 
 
             {serverErrors?.length > 0 ? serverErrors.map((error) => (
                 <Typography color="error">{error}</Typography>
             )) : ' '}
 
-      <Box component="section" className="LoginPage">
+      <Box component="section" className="LoginPage" sx={{
+  width: '100%',
+  maxWidth: '450px',
+}}>
        
-          <Box component="form" onSubmit={handleSubmit(LoginForm)} sx={{marginTop:10}}>
+          <Box component="form" onSubmit={handleSubmit(LoginForm)} sx={{
+  p: '30px',
+  borderRadius: '16px',
+  boxShadow: '0 2px 12px rgba(0,0,0,0.08)',
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '20px',
+}}>
 
                 <TextField 
                     fullWidth 
@@ -70,7 +94,11 @@ export default function Login() {
               />
 
 
-              <Button variant="contained" type="submit" disabled={isSubmitting}>
+                    <Button  fullWidth sx={{
+  py: '12px',
+  textTransform: 'none',
+  borderRadius: '8px',
+}} variant="contained" type="submit" disabled={isSubmitting}>
                     {isSubmitting ? <CircularProgress/> : 'Login'}
               </Button>
 

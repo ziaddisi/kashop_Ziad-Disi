@@ -71,7 +71,7 @@ const router = createBrowserRouter([
                 {
                 path: "orders",
                 element: <ProfileOrders />
-                }
+                },
                     ]
             
                 },

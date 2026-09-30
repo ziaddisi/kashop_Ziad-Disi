@@ -28,9 +28,20 @@ export default function Register() {
     }
 
     return (
-        <Box component="section" className="registerPage">
+        <Box component="section" className="registerPage" sx={{
+  minHeight: '80vh',
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'center',
+  px: '20px',
+}}>
             
-        <Typography component="h1" variant="h2">
+        <Typography component="h1" variant="h2" sx={{
+  fontWeight: 700,
+  textAlign: 'center',
+  mb: '25px',
+}}>
               Register
         </Typography>
 
@@ -40,9 +51,19 @@ export default function Register() {
                 <Typography color="error">{error}</Typography>
             )) : ' '}
 
-      <Box component="section" className="registerPage">
+      <Box component="section" className="registerPage" sx={{
+  width: '100%',
+  maxWidth: '500px',
+}}>
        
-          <Box component="form" onSubmit={handleSubmit(RegisterForm)} sx={{marginTop:10}}>
+          <Box component="form" onSubmit={handleSubmit(RegisterForm)} sx={{
+  p: '30px',
+  borderRadius: '16px',
+  boxShadow: '0 2px 12px rgba(0,0,0,0.08)',
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '20px',
+}}>
 
                 <TextField 
                     fullWidth 
@@ -89,7 +110,11 @@ export default function Register() {
                     helperText={errors.phoneNumber?.message}
               />
 
-              <Button variant="contained" type="submit" disabled={isSubmitting}>
+              <Button fullWidth variant="contained" type="submit" disabled={isSubmitting}  sx={{
+  py: '12px',
+  textTransform: 'none',
+  borderRadius: '8px',
+}}>
                     {isSubmitting ? <CircularProgress/> : 'register'}
               </Button>
 

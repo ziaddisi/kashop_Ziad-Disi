@@ -1,79 +1,104 @@
-import React from 'react';
+import React from 'react'
+
 import {
+  Box,
   Table,
   TableBody,
   TableCell,
   TableContainer,
   TableHead,
   TableRow,
-  Paper,
   Typography
-} from '@mui/material';
+} from '@mui/material'
+
 
 export default function ProfileOrders() {
 
-  const rows = [
-    {
-      id: 1,
-      date: '26/09/2026',
-      paymentMethod: 'Visa',
-      total: 1200,
-      status: 'Paid'
-    },
-    {
-      id: 2,
-      date: '25/09/2026',
-      paymentMethod: 'Cash',
-      total: 850,
-      status: 'Pending'
-    }
-  ];
-
   return (
-    <>
-      <Typography variant="h4" sx={{ mb: 2 }}>
+    <Box>
+
+      <Typography
+        variant="h5"
+        sx={{
+          fontWeight: 700,
+          mb: '25px',
+        }}
+      >
         My Orders
       </Typography>
 
-      <TableContainer component={Paper}>
+
+      <TableContainer
+        sx={{
+          borderRadius: '12px',
+          border: '1px solid #eeeeee',
+          overflow: 'hidden',
+        }}
+      >
+
         <Table>
 
-          <TableHead>
+          <TableHead
+            sx={{
+              backgroundColor: '#f5f5f5',
+            }}
+          >
+
             <TableRow>
-              <TableCell>Order ID</TableCell>
-              <TableCell>Date</TableCell>
-              <TableCell>Payment Method</TableCell>
-              <TableCell>Total Price</TableCell>
-              <TableCell>Status</TableCell>
+
+              <TableCell>
+                Order ID
+              </TableCell>
+
+              <TableCell>
+                Date
+              </TableCell>
+
+              <TableCell>
+                Payment
+              </TableCell>
+
+              <TableCell>
+                Total
+              </TableCell>
+
+              <TableCell>
+                Status
+              </TableCell>
+
             </TableRow>
+
           </TableHead>
 
+
           <TableBody>
-            {rows.map((order) => (
-              <TableRow key={order.id}>
 
-                <TableCell>{order.id}</TableCell>
+            <TableRow>
 
-                <TableCell>{order.date}</TableCell>
+              <TableCell
+                colSpan={5}
+                align="center"
+                sx={{
+                  py: '40px',
+                }}
+              >
 
-                <TableCell>
-                  {order.paymentMethod}
-                </TableCell>
+                <Typography
+                  color="text.secondary"
+                >
+                  No orders yet
+                </Typography>
 
-                <TableCell>
-                  ${order.total}
-                </TableCell>
+              </TableCell>
 
-                <TableCell>
-                  {order.status}
-                </TableCell>
+            </TableRow>
 
-              </TableRow>
-            ))}
           </TableBody>
 
         </Table>
+
       </TableContainer>
-    </>
-  );
+
+    </Box>
+  )
 }

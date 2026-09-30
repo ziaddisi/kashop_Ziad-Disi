@@ -1,4 +1,4 @@
-import axios from 'axios'
+
 import useCart from '../../hooks/useCart';
 import CircularProgress from '@mui/material/CircularProgress';
 import Typography from '@mui/material/Typography';
@@ -7,7 +7,7 @@ import useRemoveFromCart from '../../hooks/useRemoveFromCart';
 import useUpdateCartItem from '../../hooks/useUpdateCartItem';
 import RemoveIcon from '@mui/icons-material/Remove';
 import AddIcon from '@mui/icons-material/Add';
-import ClearIcon from '@mui/icons-material/Clear';
+
 import useClearCart from '../../hooks/useClearCart';
 import { useNavigate } from 'react-router-dom';
 
@@ -21,31 +21,48 @@ export default function Cart() {
     const { mutate: updateItem } = useUpdateCartItem();
     const { mutate: clearItem } = useClearCart();
     if (isLoading) return <CircularProgress /> 
-    if (isError) return <Typography> {error} </Typography>
-    
+if (isError) return <Typography color="error">{error.message}</Typography>    
     const handleUpdate = ( productId,action) => {
         const item = data.items.find(i => i.productId == productId);  
         if (action == '+'){
             updateItem({ productId, count: item.count + 1 })
-        } else {
-            updateItem({productId,count:item.count-1})
-        }
+        } else if (item.count > 1) {
+    updateItem({
+        productId,
+        count: item.count - 1
+    })
+}
        
     }
     console.log(data);
 
     return (
-        <Box component="section">
-            <Typography variant='h1'>Cart</Typography>
+        <Box component="section" sx={{
+    maxWidth: '1200px',
+    mx: 'auto',
+    px: '40px',
+    py: '50px'
+}}>
+            <Typography
+    variant="h3"
+    sx={{
+        fontWeight: 700,
+        mb: '30px'
+    }}
+>
+    Cart
+</Typography>
             <TableContainer>
                 <Table>
                     <TableHead>
-                        <TableCell>Product Name</TableCell>
-                        <TableCell>Price</TableCell>
-                        <TableCell>Quantity</TableCell>
-                        <TableCell>Total</TableCell>
-                         <TableCell>Actions</TableCell>
-                    </TableHead>
+            <TableRow>
+                <TableCell>Product Name</TableCell>
+                <TableCell>Price</TableCell>
+                <TableCell>Quantity</TableCell>
+                <TableCell>Total</TableCell>
+                <TableCell>Actions</TableCell>
+            </TableRow>
+        </TableHead>
                     <TableBody>
                         {data.items.map((item)=>(
                         <TableRow key={item.id} >
@@ -53,13 +70,16 @@ export default function Cart() {
                                 <TableCell> {item.price}$</TableCell>
                                 <TableCell>
                                     <Box sx={{ display: 'flex', alignItems:'center' }}>
-                                        <IconButton size='small'>
-                                            <RemoveIcon onClick={()=>handleUpdate(item.productId,'-')} />
-                                        </IconButton>
+                                <IconButton
+                                    size="small"
+                                    onClick={() => handleUpdate(item.productId, '-')}>
+                                    <RemoveIcon />
+                                </IconButton>
                                         <Typography>{item.count}</Typography>
-                                        <IconButton>
-                                            <AddIcon onClick={()=>handleUpdate(item.productId,'+')} />
-                                        </IconButton>
+                                        <IconButton
+                                    onClick={() => handleUpdate(item.productId, '+')}>
+                                    <AddIcon />
+                                </IconButton>
                                     </Box>
                                 </TableCell>
                                 <TableCell> {item.totalPrice}$</TableCell>

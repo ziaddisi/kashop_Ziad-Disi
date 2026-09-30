@@ -24,10 +24,17 @@ export default function Checkout() {
   updateCart({ productId, count });
 };
   return (
-    <Box>
+    <Box sx={{
+    maxWidth: '1200px',
+    mx: 'auto',
+    px: '40px',
+    py: '50px',
+  }}>
     <TableContainer>
       <Table>
-        <TableHead>
+        <TableHead  sx={{
+    backgroundColor: '#f5f5f5',
+  }}>
           <TableCell>Product Name</TableCell>
           <TableCell>Price</TableCell>
           <TableCell>Quantity</TableCell>
@@ -65,7 +72,13 @@ export default function Checkout() {
       </Table>
     </TableContainer>
 
-      <Box sx={{ minWidth: 120 }}>
+      <Box s sx={{
+    maxWidth: '500px',
+    mx: 'auto',
+    p: '30px',
+    borderRadius: '16px',
+    boxShadow: '0 2px 10px rgba(0,0,0,0.08)',
+  }}>
         <FormControl fullWidth>
           <InputLabel id="demo-simple-select-label">Payment Method</InputLabel>
           <Select
@@ -80,7 +93,13 @@ export default function Checkout() {
            
           </Select>
         </FormControl>
-        <Button variant='contained' color='success' onClick={() => checkout({ PaymentMethod })}>Pay Now</Button>
+        <Button variant='contained' color='success' onClick={() => checkout({ PaymentMethod })}sx={{
+    mt: '20px',
+    width: '100%',
+    py: '12px',
+    textTransform: 'none',
+    borderRadius: '8px',
+  }}>Pay Now</Button>
       </Box>
       </Box>
     );
