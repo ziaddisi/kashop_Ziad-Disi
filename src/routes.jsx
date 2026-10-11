@@ -12,6 +12,7 @@ import ProfileLayout from "./pages/profile/ProfileLayout";
 import ProtectedRouter from "./ProtectedRouter";
 import ProfileInfo from "./pages/profile/ProfileInfo";
 import ProfileOrders from "./pages/profile/ProfileOrders";
+import Reviews from "./pages/reviews/Reviews";
 
 
 
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
             {
                 path: "products",
                 element:<Products/>
+            },
+            {
+            path: "/reviews",
+            element: <Reviews />,
             },
             {
              path: '/products/:id',

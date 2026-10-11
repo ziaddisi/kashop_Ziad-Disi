@@ -107,7 +107,13 @@ const handleMenuClose = () => {
   >
     {t('Categories')}
   </MenuItem>
-
+ <MenuItem
+    component={Link}
+    to="/Reviews"
+    onClick={handleMenuClose}
+  >
+    {t('Reviews')}
+  </MenuItem>
   <MenuItem
     component={Link}
     to="/cart"
@@ -137,7 +143,9 @@ const handleMenuClose = () => {
             <Button color="inherit" component={Link} to="/categories">
               {t('Categories')}
             </Button>
-
+            <Button color="inherit" component={Link} to="/reviews">
+              {t('Reviews')}
+            </Button>
             <Button color="inherit" component={Link} to="/cart">
               {t('Cart')} ({cartCount})
             </Button>

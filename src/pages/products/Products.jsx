@@ -1,5 +1,4 @@
-import React from 'react';
-
+import React, { useState } from 'react';
 import {
   Box,
   Button,
@@ -7,26 +6,47 @@ import {
   CardContent,
   CardMedia,
   CircularProgress,
-  Grid,
-  Typography
+    Grid,
+  TextField,
+    Typography,
+    Select,
+MenuItem,
+FormControl,
+InputLabel,
 } from '@mui/material';
 
 import { Link as RouterLink } from 'react-router-dom';
-
+import Autocomplete, { createFilterOptions } from '@mui/material/Autocomplete';
 import useProducts from '../../hooks/useProducts';
 import useAddToCart from '../../hooks/useAddToCart';
 import { useTranslation } from 'react-i18next';
 
+const filterOptions = createFilterOptions({
+  matchFrom: 'start',
+  stringify: (option) => option.name,
+});
 
 const Products = () => {
-
-  const { data, isLoading, isError } = useProducts();
-
+const [page, setPage] = useState(1);
+const [limit, setLimit] = useState(3);
+const [sortBy, setSortBy] = useState('price');
+    const [ascending, setAscending] = useState(false);
+    const { data, isLoading, isError } = useProducts({
+  page,
+  limit,
+  sortBy,
+  ascending
+});
   const { mutate: addToCart } = useAddToCart();
 
   const { t } = useTranslation();
-
-
+const [search, setSearch] = useState('');
+    const products = data?.response?.data || [];
+    
+    const filteredProducts = products.filter((product) =>
+  product.name.toLowerCase().startsWith(search.toLowerCase())
+    );
+    
   if (isLoading) {
     return <CircularProgress />;
   }
@@ -66,9 +86,65 @@ const Products = () => {
         }}
       >
         {t('Products')}
-      </Typography>
+          </Typography>
+         <Box
+  sx={{
+    display: 'flex',
+    justifyContent: 'center',
+    gap: 2,
+    mb: 4,
+  }}
+>
+  <FormControl sx={{ minWidth: 150 }}>
+    <InputLabel>Sort By</InputLabel>
 
+    <Select
+      value={sortBy}
+      label="Sort By"
+      onChange={(e) => setSortBy(e.target.value)}
+    >
+      <MenuItem value="price">Price</MenuItem>
+    </Select>
+  </FormControl>
 
+  <FormControl sx={{ minWidth: 170 }}>
+    <InputLabel>Order</InputLabel>
+
+    <Select
+      value={ascending}
+      label="Order"
+      onChange={(e) => setAscending(e.target.value)}
+    >
+      <MenuItem value={false}>Descending</MenuItem>
+      <MenuItem value={true}>Ascending</MenuItem>
+    </Select>
+  </FormControl>
+
+  <FormControl sx={{ minWidth: 150 }}>
+    <InputLabel>Limit</InputLabel>
+
+    <Select
+      value={limit}
+      label="Limit"
+      onChange={(e) => setLimit(Number(e.target.value))}
+    >
+      <MenuItem value={3}>3</MenuItem>
+      <MenuItem value={6}>6</MenuItem>
+      <MenuItem value={9}>9</MenuItem>
+    </Select>
+  </FormControl>
+</Box>
+
+<Autocomplete
+  options={products}
+  getOptionLabel={(option) => option.name}
+  filterOptions={filterOptions}
+  onInputChange={(event, value) => setSearch(value)}
+  sx={{ width: '300px', mb: '30px', mx: 'auto' }}
+  renderInput={(params) => (
+    <TextField {...params} label="Search Products" />
+  )}
+/>
       {/* Products */}
 
       <Grid
@@ -76,8 +152,7 @@ const Products = () => {
         spacing={3}
       >
 
-        {data?.response?.data?.map((product) => (
-
+{filteredProducts.map((product) => (
           <Grid
             key={product.id}
             size={{
