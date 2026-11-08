@@ -1,4 +1,4 @@
-
+import staticProducts from '../../data/staticProducts';
 import React, { useState, useEffect } from 'react';
 import {
   Box,
@@ -206,7 +206,89 @@ export default function Home() {
           </>
         )}
       </Box>
+{/* Static Products Heading */}
+<Box sx={{ width: '100%', py: 4, px: 2 }}>
+  <Typography
+    variant="h4"
+    component="h2"
+    sx={{
+      fontWeight: 700,
+      textAlign: 'center',
+    }}
+  >
+    Our Featured Products
+  </Typography>
+</Box>
 
+{/* Static Products Cards */}
+<Box
+  sx={{
+    width: '100%',
+    boxSizing: 'border-box',
+    display: 'grid',
+    gridTemplateColumns: {
+      xs: 'minmax(0, 1fr)',
+      sm: 'repeat(2, minmax(0, 1fr))',
+      lg: 'repeat(4, minmax(0, 1fr))',
+    },
+    gap: 3,
+    px: { xs: 2, sm: 3, md: 5 },
+    pb: 5,
+    maxWidth: 1400,
+    mx: 'auto',
+  }}
+>
+  {staticProducts.map((product) => (
+    <Box
+      key={product.id}
+      sx={{
+        border: '1px solid #e5e5e5',
+        borderRadius: 3,
+        p: 2,
+        textAlign: 'center',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        transition: '0.2s',
+        '&:hover': {
+          boxShadow: 3,
+          transform: 'translateY(-3px)',
+        },
+      }}
+    >
+      <Box
+        component="img"
+        src={product.image}
+        alt={product.name}
+        loading="lazy"
+        sx={{
+          width: '100%',
+          maxWidth: 220,
+          height: 200,
+          objectFit: 'contain',
+          mb: 2,
+        }}
+      />
+
+      <Typography variant="h6" fontWeight={600}>
+        {product.name}
+      </Typography>
+
+      <Typography sx={{ my: 2 }}>
+        ${product.price}
+      </Typography>
+
+      <Button
+        component={Link}
+        to="/products"
+        variant="outlined"
+        sx={{ textTransform: 'none' }}
+      >
+        View Products
+      </Button>
+    </Box>
+  ))}
+</Box>
       {/* Featured products heading */}
       <Box
         sx={{

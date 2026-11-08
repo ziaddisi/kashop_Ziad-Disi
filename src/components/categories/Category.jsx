@@ -24,7 +24,7 @@ export default function Category({ category }) {
       }}
     >
 
-      {/* Category Image */}
+    
 
       {category?.image && (
         <CardMedia
@@ -42,7 +42,7 @@ export default function Category({ category }) {
       )}
 
 
-      {/* Category Name */}
+      
 
       <CardContent>
 

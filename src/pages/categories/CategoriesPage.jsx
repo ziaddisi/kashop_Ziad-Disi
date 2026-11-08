@@ -24,7 +24,7 @@ export default function CategoriesPage() {
   const { t } = useTranslation();
 
   const categories = data?.response?.data || [];
-
+console.log('First category object:', categories[0]);
   if (isLoading) {
     return (
       <Box

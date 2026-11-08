@@ -146,14 +146,6 @@ export default function Navbar() {
 
             <MenuItem
               component={Link}
-              to="/reviews"
-              onClick={handleMenuClose}
-            >
-              {t('Reviews')}
-            </MenuItem>
-
-            <MenuItem
-              component={Link}
               to="/cart"
               onClick={handleMenuClose}
             >
@@ -235,9 +227,6 @@ export default function Navbar() {
               {t('Categories')}
             </Button>
 
-            <Button color="inherit" component={Link} to="/reviews">
-              {t('Reviews')}
-            </Button>
 
             <Button color="inherit" component={Link} to="/cart">
               {t('Cart')} ({cartCount})
