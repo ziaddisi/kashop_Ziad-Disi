@@ -26,6 +26,7 @@ import Autocomplete, {
 import useProducts from '../../hooks/useProducts';
 import useAddToCart from '../../hooks/useAddToCart';
 import { useTranslation } from 'react-i18next';
+import staticProducts from '../../data/staticProducts';
 
 const filterOptions = createFilterOptions({
   matchFrom: 'start',
@@ -50,8 +51,9 @@ const Products = () => {
   const { t } = useTranslation();
 
   const products = data?.response?.data || [];
+  const allProducts = [...products, ...staticProducts];
 
-  const filteredProducts = products.filter((product) =>
+  const filteredProducts = allProducts.filter((product) =>
     (product.name || '')
       .toLowerCase()
       .includes(search.trim().toLowerCase())
@@ -119,7 +121,7 @@ const Products = () => {
 
       {/* Search */}
       <Autocomplete
-        options={products}
+        options={allProducts}
         getOptionLabel={(option) => option.name || ''}
         filterOptions={filterOptions}
         inputValue={search}
@@ -284,46 +286,55 @@ const Products = () => {
                   >
                     ${product.price}
                   </Typography>
+<Box
+  sx={{
+    width: '100%',
+    display: 'flex',
+    flexDirection: { xs: 'column', sm: 'row' },
+    gap: 1,
+    mt: 'auto',
+  }}
+>
+  {!product.isStatic && (
+    <>
+      <Button
+        fullWidth
+        variant="contained"
+        onClick={() =>
+          addToCart({
+            productId: product.id,
+            count: 1,
+          })
+        }
+        sx={{
+          textTransform: 'none',
+          whiteSpace: 'nowrap',
+        }}
+      >
+        {t('Add to Cart')}
+      </Button>
 
-                  <Box
-                    sx={{
-                      width: '100%',
-                      display: 'flex',
-                      flexDirection: { xs: 'column', sm: 'row' },
-                      gap: 1,
-                      mt: 'auto',
-                    }}
-                  >
-                    <Button
-                      fullWidth
-                      variant="contained"
-                      onClick={() =>
-                        addToCart({
-                          productId: product.id,
-                          count: 1,
-                        })
-                      }
-                      sx={{
-                        textTransform: 'none',
-                        whiteSpace: 'nowrap',
-                      }}
-                    >
-                      {t('Add to Cart')}
-                    </Button>
+      <Button
+        fullWidth
+        component={RouterLink}
+        to={`/products/${product.id}`}
+        variant="outlined"
+        sx={{
+          textTransform: 'none',
+          whiteSpace: 'nowrap',
+        }}
+      >
+        View Details
+      </Button>
+    </>
+  )}
 
-                    <Button
-                      fullWidth
-                      component={RouterLink}
-                      to={`/products/${product.id}`}
-                      variant="outlined"
-                      sx={{
-                        textTransform: 'none',
-                        whiteSpace: 'nowrap',
-                      }}
-                    >
-                      View Details
-                    </Button>
-                  </Box>
+  {product.isStatic && (
+    <Typography color="text.secondary">
+      Display Product
+    </Typography>
+  )}
+</Box>
                 </CardContent>
               </Card>
             </Grid>

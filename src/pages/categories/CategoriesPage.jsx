@@ -24,6 +24,17 @@ export default function CategoriesPage() {
   const { t } = useTranslation();
 
   const categories = data?.response?.data || [];
+  const uniqueCategories = categories.filter(
+  (category, index, array) =>
+    index === array.findIndex((item) => item.id === category.id)
+);
+ console.table(
+  categories.map((category) => ({
+    id: category.id,
+    name: category.name,
+    translations: category.translations,
+  }))
+);
 console.log('First category object:', categories[0]);
   if (isLoading) {
     return (
@@ -90,7 +101,7 @@ console.log('First category object:', categories[0]);
       </Typography>
 
       {/* Empty state */}
-      {categories.length === 0 ? (
+      {uniqueCategories.length === 0? (
         <Box
           sx={{
             textAlign: 'center',
@@ -110,7 +121,7 @@ console.log('First category object:', categories[0]);
           container
           spacing={{ xs: 2, sm: 3 }}
         >
-          {categories.map((category) => (
+          {uniqueCategories.map((category) => (
             <Grid
               key={category.id}
               size={{

@@ -12,10 +12,10 @@ import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 const categoryImages = {
-  3: '/images/categories/phones.jpg',
-  5: '/images/categories/laptops.jpg',
-  6: '/images/categories/accessories.jpg',
-  7: '/images/categories/gaming.jpg',
+  3: '/images/products/iphone-15-pro.jpg',
+  5: '/images/products/iphone-16-pro-max.jpg',
+  6: '/images/products/hp-pavillion.jpg',
+  7: '/images/products/macbook-air.jpg',
 };
 
 export default function Category({ category }) {
